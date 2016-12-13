@@ -13,8 +13,30 @@ class Host:
 
     def __init__(self, **kwargs):
         for k in kwargs:
-            if k in self.ALLOWED_KEYS:
-                setattr(self, k, kwargs.get(k))
+            if k not in self.ALLOWED_KEYS:
+                raise AttributeError
+
+        self.name = kwargs.get('name')
+
+        self.status = kwargs.get('status')
+        if self.status == 'up':
+            self.status = True
+        elif self.status == 'down':
+            self.status = False
+
+        self.uptime = kwargs.get('uptime')
+
+        self.users = kwargs.get('users')
+        if len(self.users) == 0:
+            self.users = 0
+        else:
+            self.users = int(self.users)
+
+        self.load = kwargs.get('load')
+        if len(self.load) == 0:
+            self.load = 0.0
+        else:
+            self.load = float(self.load)
 
 class Scraper:
 
@@ -42,27 +64,9 @@ class Scraper:
                     text = row.get_text()
                     data.append(text)
 
-            kwargs['name'] = data[0]
-
-            status = data[1]
-            if status == 'up':
-                kwargs['status'] = True
-            elif status == 'down':
-                kwargs['status'] = False
-
-            kwargs['uptime'] = data[2]
-
-            users = data[3]
-            if len(users) == 0:
-                kwargs['users'] = 0
-            else:
-                kwargs['users'] = int(data[3])
-
-            load = data[4]
-            if len(load) == 0:
-                kwargs['load'] = 0
-            else:
-                kwargs['users'] = float(data[4])
+            for i in range(len(data)):
+                key = Host.ALLOWED_KEYS[i]
+                kwargs[key] = data[i]
 
             host = Host(**kwargs)
             hosts.append(host)
