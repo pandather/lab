@@ -34,7 +34,8 @@ def get_running_hosts():
 
 @app.route('/hosts/<int:users>', methods=['GET'])
 def get_hosts_with_users(users):
-    """List UNIX hosts with users less than the threshold"""
+    """List UNIX hosts with users less than the number of
+    users specified"""
     data = []
     for host in scraper.parse_html():
         host_vars = host.__dict__
@@ -48,7 +49,8 @@ def get_hosts_with_users(users):
 
 @app.route('/hosts/<float:load>', methods=['GET'])
 def get_hosts_with_load(load):
-    """List UNIX hosts with load less than the threshold"""
+    """List UNIX hosts with load less than the load
+    number specified"""
     data = []
     for host in scraper.parse_html():
         host_vars = host.__dict__
