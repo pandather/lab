@@ -4,26 +4,26 @@ API that tracks the status of UTCS GDC lab machines. Primarily, it provides sugg
 
 ## API Reference
 
-### /all
+### `/all`
 Returns all UNIX hosts.
 
-### /up
+### `/up`
 Returns UNIX hosts with an "up" status.
 
-### /down
+### `/down`
 Returns UNIX hosts with a "down" status.
 
-### /users
+### `/users`
 Returns UNIX hosts with users above or below the specified threshold. Parameters: up (boolean), threshold (int).
 
-### /load
+### `/load`
 Returns UNIX hosts with load above or below the specified threshold. Parameters: up (boolean), threshold (float).
 
-### /uptime
+### `/uptime`
 Returns UNIX hosts with an uptime above or below the specified threshold. Parameters: up (boolean), threshold (int).
 
-### /host
+### `/host`
 Returns the specified UNIX host and its information. Parameters: name (String).
 
-### /sorted
+### `/sorted`
 Returns a sorted list of UNIX hosts based on the lowest uptime, users, and load.
